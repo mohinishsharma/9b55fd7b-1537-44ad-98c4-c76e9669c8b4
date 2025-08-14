@@ -1,0 +1,22 @@
+{
+    "name": "ampd",
+    "dockerComposeFile": [
+        "./docker-compose.yaml"
+    ],
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "remoteUser": "node",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "ms-azuretools.vscode-docker",
+                "mhutchie.git-graph",
+                "EditorConfig.EditorConfig"
+            ],
+            "settings": {
+                "remote.autoForwardPorts": false
+            }
+        }
+    }
+}
