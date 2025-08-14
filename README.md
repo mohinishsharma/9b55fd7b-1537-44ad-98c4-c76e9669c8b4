@@ -252,7 +252,7 @@ All necessary tools including Node.js 18.19.0, pnpm, MariaDB client, and Redis t
 ### Savings
 
 - `GET /savings/:deviceId` - Get savings data for a specific device
-- `GET /savings/:deviceId/aggregated` - Get aggregated savings for a device
+- `GET /savings/:deviceId/overall` - Get overall savings for a device
 
 ## Database Schema
 
