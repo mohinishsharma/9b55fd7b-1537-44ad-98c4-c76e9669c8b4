@@ -1,0 +1,49 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: sh -c "pnpm seed && pnpm start" # This is just for demo purpose
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    networks:
+      - ampd-network
+  
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - ampd-network
+  
+  redis:
+    image: redis:latest
+    volumes:
+      - redis-data:/data
+    networks:
+      - ampd-network
+
+networks:
+  ampd-network:
+    driver: bridge
+
+volumes:
+  db-data:
+  redis-data:
